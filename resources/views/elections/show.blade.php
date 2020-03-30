@@ -1,0 +1,71 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card" style="width:80%;">
+            <div class="card-header text-center h3" >{{ $election->title }}</div>
+            <h5 class="text-center lead" >{{ $election->subtitle }}</h5>
+<hr>
+{{-- @if ($errors->first('voted'))　　　<!-- これはでない -->
+<p class="validation">※{{$errors->first('password')}}</p>
+@endif --}}
+{{-- @error('vote')
+<div class="alert alert-danger">{{ $message }}</div>
+@enderror --}}
+
+@if ($errors->any())
+<div class="alert alert-danger">
+ <ul>
+   @foreach ($errors->all() as $error)
+ <li>{{ $error }}</li>
+ @endforeach
+ </ul>
+</div>
+@endif
+
+            <div class="card-body">
+                <form id="vote" method="POST" action="{{ route('elections.vote',$election->id) }}" required class="@error('vote') is-invalid @enderror">
+                    @csrf
+                    @foreach($candidates as $candidate)
+                    @for($i=1; $i<=10; $i++)
+                    <div class="col-md-12" style="margin:0 auto; clear:both;">
+                        <div class="col-md-2" style="height:100px; float:left; clear:both">image</div>
+                        <div class="col-md-8" style="float:left;">
+                            <input id="name{{ $i-1 }}" type="text" class="form-control @error('name'.($i-1)) is-invalid @enderror" name="{{ $i-1 }}" value="{{ $candidate['name'.($i-1)] }}" autocomplete="name{{ $i-1 }}" autofocus>
+                            <input id="com{{ $i-1 }}" type="text" class="form-control @error('com'.($i-1)) is-invalid @enderror" name="com{{ $i-1 }}" value="{{ $candidate['com'.($i-1)] }}" autocomplete="com{{ $i-1 }}" autofocus>
+                        </div>
+                        {{-- votesのなかのuser_idから、election_idがあれば、非表示にして、結果を表示したい。 --}}
+                        <div class="col-md-2" style="float:left; " >
+                            <p class="">候補{{ $i }}</p>
+                            <input id="vote" type="radio" class="form-control" name="voted" value="name{{ $i-1 }}" autocomplete="name{{ $i-1 }}" autofocus>
+                        </div>
+                    </div>
+                
+                    
+                    @endfor
+                    @endforeach
+                    
+                   
+                </form>
+                </div>
+                {{-- form外からはform=idで指定 --}}
+                @if($vote_user === false)
+                {{-- @if(empty($voted)) --}}
+
+            
+                    <button id="voting" form="vote" type="submit" class="btn btn-success mb-4">
+                        投票する！
+                    </button>
+
+                   
+
+                @endif
+                <a href="{{ route('elections')}}" class="btn btn-primary">前に戻る</a>
+                {{ var_dump($vote_user) }}
+
+            <div>
+            </div>
+        </div>
+        @endsection
+
