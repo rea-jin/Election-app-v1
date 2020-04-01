@@ -4,9 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="card" style="width:80%;">
-            <div class="card-header text-center h3" >{{ $election->title }}</div>
-            <h5 class="text-center lead" >{{ $election->subtitle }}</h5>
-<hr>
+            <div class="card-header text-center h3">{{ $election->title }}</div>
+            <h5 class="text-center lead mt-2" >{{ $election->subtitle }}</h5>
+<hr style="font:bold; margin:10px 0;">
 {{-- @if ($errors->first('voted'))　　　<!-- これはでない -->
 <p class="validation">※{{$errors->first('password')}}</p>
 @endif --}}
@@ -27,6 +27,8 @@
             <div class="card-body">
                 <form id="vote" method="POST" action="{{ route('elections.vote',$election->id) }}" required class="@error('vote') is-invalid @enderror">
                     @csrf
+                    <div class="text-center mb-2" style="font-weight:bold; font-size:1.5em;">総投票数：{{ $total_vote }} 票 </div>
+                        
                     @foreach($candidates as $candidate)
                     @for($i=1; $i<=10; $i++)
                     <div class="col-md-12" style="margin:0 auto; clear:both;">
@@ -37,8 +39,16 @@
                         </div>
                         {{-- votesのなかのuser_idから、election_idがあれば、非表示にして、結果を表示したい。 --}}
                         <div class="col-md-2" style="float:left; " >
+
                             <p class="">候補{{ $i }}</p>
+
+                            @if($vote_user === false)
                             <input id="vote" type="radio" class="form-control" name="voted" value="name{{ $i-1 }}" autocomplete="name{{ $i-1 }}" autofocus>
+
+                            @elseif($vote_user === true)
+                            <p class="text-center" style="background-color: aqua; font-size:16px;">{{ $count[$i-1] }} 票</p>
+                            
+                            @endif
                         </div>
                     </div>
                 
@@ -62,7 +72,7 @@
 
                 @endif
                 <a href="{{ route('elections')}}" class="btn btn-primary">前に戻る</a>
-                {{ var_dump($vote_user) }}
+                {{-- {{ var_dump($vote_user) }} --}}
 
             <div>
             </div>

@@ -8,12 +8,12 @@
 
         @foreach ($elections as $election)
 
-        <div class="col-md-6 mb-3" style="backgorund-color:#d393ff width:50%;">
-            <div class="card" style="border:5px solid #009988">
-                <div class="card-body mb-3">
-                    <h3 class="card-title">{{ $election->title }}</h3>
-                    <h5 class="card-title" style="overflow:hidden">{{ $election->subtitle }}</h3>
-                    <a href="{{ route('elections.show',$election->id ) }}" class="btn btn-primary">{{ __('選挙を見る')  }}</a>
+        <div class="col-md-6" style="backgorund-color:#d393ff width:50%;">
+            <div class="card mb-3" style="border:5px solid #009988">
+                <div class="card-body ">
+                    <h3 class="card-title" style="height:30px; overflow:hidden;" >{{ $election->title }}</h3>
+                    <h5 class="card-title" style="height:45px; overflow:hidden;">{{ $election->subtitle }}</h3>
+                    <a href="{{ route('elections.show',$election->id ) }}" class="btn btn-primary " style="float:right; width:30%;">{{ __('選挙を見る')  }}</a>
                     {{-- <a href="{{ route('elections.delete',$election->id ) }}" class="btn btn-primary">{{ __('選挙を削除する') }}</a> --}}
                 </div>
             </div>

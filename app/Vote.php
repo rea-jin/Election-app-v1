@@ -11,4 +11,8 @@ class Vote extends Model
     {
         return $this->belongsTo('App\Election', 'foreign_key');
     }
+
+    public function user_voted(){
+        return $this->belongsTo('App\User');
+    }
 }

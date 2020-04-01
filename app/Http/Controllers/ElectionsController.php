@@ -196,8 +196,40 @@ class ElectionsController extends Controller
     $candidates = Candidate::where('election_id',$id)->get();
     // 投票したか eloqでログインuserのvoteを取り、ele_idが渡されたidと一致しているものがあるか
     $vote_user = Auth::user()->votes()->where('election_id',$id)->exists();
+    // 投票数を数える 指定の選挙のvotedを取得
+    $vote = Vote::all(); 
+    // $count_votes = Vote::all()->count(); 
+    // 総投票数
+    $total = Vote::all()->where('election_id',$id); 
+    $total_vote =$total->count(); 
+    // 各投票数
+    $count = [];
+    for($i=1;$i<=10;$i++)
+    {
+        $c = 'name'.($i-1);
+        $value = $total->where('voted',$c)->count();
+        $count[] = $value; //配列に入れる
+    }
+    
+    // $value = $total->where($a,$b)->count();
+    // $counts = Vote::where('voted',$value)->count();
+    // $vote_total = Vote::where()->count(); // OK!
 
-    return view('elections.show', compact('vote_user','voted','election','candidates'));
+    // $values = $count_votes->get('voted');
+    // foreach($values as $value){
+        // $counts = $value;
+
+    // }
+    // $count_votes = Votes$election->votes()->count();
+    // foreach($count_votes as $count_vote)
+    // {
+        // for($i = 1; $i<=10; $i++)
+        // {
+            // $count[($i-1)] = $count_vote->count('name'.($i-1));
+            // $name9 = $count_vote->count();
+        // }
+    // }
+    return view('elections.show', compact('a','value2','total_vote','total','value','counts', 'vote_total','name9','count_votes','count_vote','count', 'vote_user','voted','election','candidates'));
     }
 
     // 投稿処理
