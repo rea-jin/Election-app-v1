@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('Ellection Register') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('elections.new') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('elections.new') }}">
                             @csrf
 
                             <div class="form-group row">
@@ -38,7 +38,7 @@
                                     @enderror
                                 </div>
                             </div>
-<hr>
+
 
 
 @for($i = 1; $i<=10; $i++)
@@ -52,8 +52,8 @@
                                 <div class="col-md-6">
                                 <input id="com{{ $i-1 }}" type="text" class="form-control @error('com'.($i-1)) is-invalid @enderror" name="com{{ $i-1 }}" value=" {{old('com'.($i-1)) }}" autocomplete="com{{ $i-1 }}" autofocus>
                                 </div>
-                             <label for="img{{ $i-1 }}" class="area-drop mt-2 ol-md-4 col-form-label text-center" style="margin:0 auto;">
-                                {{ '画像'.($i)  }}
+                             <label for="img{{ $i-1 }}" class="area-drop mt-2 ol-md-4 col-form-label text-md-right <?php if(!empty($err_msg['img'])) echo 'err'; ?>" style="margin:0 auto;">
+                                {{ '画像'.($i-1)  }}
                                         <br>
                                         <h6 class="text-center">
                                         clickでファイル選択
@@ -67,15 +67,6 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                    @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                        </ul>
-                                    </div>
-                                    @endif
                             </div>
                       
                     

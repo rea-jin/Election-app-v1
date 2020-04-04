@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 // use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ElectionsController extends Controller
 {
@@ -47,14 +48,35 @@ class ElectionsController extends Controller
             'com7' => 'string|nullable|max:255',
             'com8' => 'string|nullable|max:255',
             'com9' => 'string|nullable|max:255',
+            'img0' => 'file|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'img1' => 'file|nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
+            'img2' => 'file|nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
+            'img3' => 'file|nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
+            'img4' => 'file|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'img5' => 'file|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'img6' => 'file|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'img7' => 'file|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'img8' => 'file|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'img9' => 'file|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $election = new Election;
         $election->title = $request->title;
         $election->subtitle = $request->subtitle;
 
-        // $election->img = $request->img;
-        // $election->img = $request->img;
+        // $election->img0 = $request->img0;
+        // $election->img0 = $request->img0->store('public/candidate_img');
+        // $election->img1 = $request->img1->store('public/candidate_img');
+        // 画像保存
+        for($i=1;$i<=3;$i++)
+        {
+            $img = 'img'.($i-1);
+            if(!empty($request->$img))
+            {
+                $election->$img = $request->$img->store('public/candidate_img');
+            }
+        }
+        // $election->img1 = $request->img1;
         // $election->img = $request->img;
         // $election->img = $request->img;  
         $election->user_id = Auth::user()->id;
@@ -64,12 +86,25 @@ class ElectionsController extends Controller
         // Auth::user()->elections()->save($election->fill($request->all()));
         
         $candidate = new Candidate;
-        $candidate->name0 = $request->name0;
-        $candidate->name1 = $request->name1;
-        $candidate->name2 = $request->name2;
-        $candidate->com0 = $request->com0;
-        $candidate->com1 = $request->com1;
-        $candidate->com2 = $request->com2;
+        // 候補名保存
+        for($i=1;$i<=3;$i++)
+        {
+            $name = 'name'.($i-1);
+            if(!empty($request->$name))
+            {
+                $candidate->$name = $request->$name;
+            }
+        }
+        // コメント保存
+        for($i=1;$i<=3;$i++)
+        {
+            $com = 'com'.($i-1);
+            if(!empty($request->$com))
+            {
+                $candidate->$com = $request->$com;
+            }
+        }
+      
         $candidate->election_id = $election->id;
         $candidate->save();
 
@@ -80,42 +115,26 @@ class ElectionsController extends Controller
     // 編集画面 election_idがくる
     public function edit($id)
     {
-        // GETパラメータが数字かどうかをチェックする
-        // 事前にチェックしておくことでDBへの無駄なアクセスが減らせる（WEBサーバーへのアクセスのみで済む）
+  
         if(!ctype_digit($id)){
             return redirect('/elections/new')->with('flash_message', __('1Invalid operation was performed.'));
         }
-        // 主キーを使うのがfind,他のキーを使うのがfirst,whereで条件指定
-// User hasmany Election ..........o
-        // $election_id = $id; // 送られてくるのはelection_id
-        // 下2つは同じ、collection object
-        // $u_e1 = User::find(3)->elections; //userid3のelection要素は取れる->election2つ取れる
-        // $elections = Auth::user()->elections; // login userのelectionのレコードを取得したobjectのプロパティ参照
-// Election belongsto User ........x
-        // オブジェクト
-        // $election = Candidate::find($id); //e_idは３だけど、c_idは２つまり、findは主キーなので、eleの2が入って、c_id２が取れてくる
+    
         $election = Election::find($id);
         if($election->delete_flg==1){
             return redirect('/elections/new')->with('flash_message', __('1Invalid operation was performed.'));
         }
-        // if($election->delete_flg==1){
-        //     return redirect('/elections/mypage')->with('flash_message', __('削除済の選挙です'));
-        // } // これがnull?
-        // $e_u1 = $e_id->user->id; // belongstoが効いてない？
-        // $job = User::where('election_id', $abcd)->first();
-// Election hasone Candidate.......o
-        // $a = Candidate::find(1); //c_id1が取れる
+    
         $candidate = Candidate::where('election_id',$id)->get(); // 取れる！ 外部キーele_id２のcan_id1は取れる
-        // $candidate_id = Candidate::find($candidate); // これはオブジェクト表示だが、vue bladeの方では取れる
-        // $e_c1 = Candidate::select('election_id')->get($id); //コレクションオブジェクト ele_id 2,3が取れる
-        // Log::debug('$election='.$election); // $data->result=1 
+     
+        $is_image = false;
+        if (Storage::disk('local')->exists('public/candidate_img/')) 
+        {
+            $is_image = true;
+        }
+        // $read_temp_path = str_replace('public/', 'storage/', $temp_path);
 
-// Candidate belongsto Election .......o
-        // $c_e1 = Election::find($id); // electionのidのあるレコードを取得したオブジェクト
-        // $ces = Candidate::select('election_id')->first(); // ele_idを取得
-        // $cess = $ces->election; // 使える！やはり、foreign_idが余計だったか。上で撮ったidのレコード取得
-
-        return view('elections.edit', compact('candidate', 'election','name', 'com'));
+        return view('elections.edit', compact('is_image','candidate', 'election','name', 'com'));
     }
 
     // 更新用
@@ -130,8 +149,18 @@ class ElectionsController extends Controller
     $election = Election::find($id);
     // $election = Auth::user()->elections()->find($id);
     // $election->fill($request->all())->save();
+    for($i=1;$i<=3;$i++)
+        {
+            $img = 'img'.($i-1);
+            if(!empty($request->$img))
+            {
+                $election->$img = $request->$img->store('public/candidate_img');
+            }
+        }
     $election->title = $request->title;
     $election->subtitle = $request->subtitle;
+    // $election->img0 = $request->img0->store('public/candidate_img');
+
     $election->user_id = Auth::user()->id;
     $election->save();
 
@@ -144,12 +173,28 @@ class ElectionsController extends Controller
     // ])->save();
 
     foreach($candidate as $candidate){
-    $candidate->name0 = $request->name0;
-    $candidate->name1 = $request->name1;
-    $candidate->name2 = $request->name2;
-    $candidate->com0 = $request->com0;
-    $candidate->com1 = $request->com1;
-    $candidate->com2 = $request->com2;
+    // $candidate->name0 = $request->name0;
+    // $candidate->name1 = $request->name1;
+    // $candidate->name2 = $request->name2;
+    for($i=1;$i<=3;$i++)
+        {
+            $com = 'com'.($i-1);
+            if(!empty($request->$com))
+            {
+                $candidate->$com = $request->$com;
+            }
+        }
+    // $candidate->com0 = $request->com0;
+    // $candidate->com1 = $request->com1;
+    // $candidate->com2 = $request->com2;
+    for($i=1;$i<=3;$i++)
+        {
+            $name = 'name'.($i-1);
+            if(!empty($request->$name))
+            {
+                $candidate->$name = $request->$name;
+            }
+        }
     $candidate->election_id =$id;
     // $candidate->fill($request->all())->save();
     $candidate->save();

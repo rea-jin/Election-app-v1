@@ -31,28 +31,31 @@
                         
                     @foreach($candidates as $candidate)
                     @for($i=1; $i<=10; $i++)
-                    <div class="col-md-12" style="margin:0 auto; clear:both;">
-                        <div class="col-md-2" style="height:100px; float:left; clear:both">image</div>
-                        <div class="col-md-8" style="float:left;">
-                            <input id="name{{ $i-1 }}" type="text" class="form-control @error('name'.($i-1)) is-invalid @enderror" name="{{ $i-1 }}" value="{{ $candidate['name'.($i-1)] }}" autocomplete="name{{ $i-1 }}" autofocus>
-                            <input id="com{{ $i-1 }}" type="text" class="form-control @error('com'.($i-1)) is-invalid @enderror" name="com{{ $i-1 }}" value="{{ $candidate['com'.($i-1)] }}" autocomplete="com{{ $i-1 }}" autofocus>
+                    <div class="col-md-12" style="margin:0 auto;">
+                        <div class="col-md-12" style="">
+                            <img src="{{ str_replace('public/', '/storage/',$election['img'.($i-1)]) }}" class="mb-2" width="100px" height="100px"  style="float:left; clear:both;">
                         </div>
-                        {{-- votesのなかのuser_idから、election_idがあれば、非表示にして、結果を表示したい。 --}}
-                        <div class="col-md-2" style="float:left; " >
-
-                            <p class="">候補{{ $i }}</p>
-
-                            @if($vote_user === false)
-                            <input id="vote" type="radio" class="form-control" name="voted" value="name{{ $i-1 }}" autocomplete="name{{ $i-1 }}" autofocus>
-
-                            @elseif($vote_user === true)
-                            <p class="text-center" style="background-color: aqua; font-size:16px;">{{ $count[$i-1] }} 票</p>
-                            
-                            @endif
+                            <div class="col-md-8" style="float:left;">
+                                {{-- <input id="name{{ $i-1 }}" type="text" class="form-control mt-2 @error('name'.($i-1)) is-invalid @enderror" name="{{ $i-1 }}" value="{{ $candidate['name'.($i-1)] }}" autocomplete="name{{ $i-1 }}" autofocus> --}}
+                                <div id="name{{ $i-1 }}" type="text" class="strong mark lead mt-2 @error('name'.($i-1)) is-invalid @enderror" name="{{ $i-1 }}">{{ $candidate['name'.($i-1)] }}</div>
+                                <input id="com{{ $i-1 }}" type="text" class="form-control mb-3 @error('com'.($i-1)) is-invalid @enderror" name="com{{ $i-1 }}" value="{{ $candidate['com'.($i-1)] }}" autocomplete="com{{ $i-1 }}" disabled="disabled">
+                            </div>
+                            {{-- votesのなかのuser_idから、election_idがあれば、非表示にして、結果を表示したい。 --}}
+                            <div class="col-md-2" style="float:left;" >
+                                
+                                <p class="">候補{{ $i }}</p>
+                                
+                                @if($vote_user === false)
+                                <input id="vote" type="radio" class="form-control" name="voted" value="name{{ $i-1 }}" autocomplete="name{{ $i-1 }}" autofocus>
+                                
+                                @elseif($vote_user === true)
+                                <p class="text-center" style="background-color: aqua; font-size:16px;">{{ $count[$i-1] }} 票</p>
+                                
+                                @endif
                         </div>
                     </div>
-                
-                    
+                        
+                        
                     @endfor
                     @endforeach
                     
