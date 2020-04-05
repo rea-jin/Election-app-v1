@@ -46,32 +46,42 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    {{-- <ul class="navbar-nav ml-auto"> --}}
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <ul class="navbar-nav mr-auto ml-1 mb-1 font-bold">
+                            <li class="nav-item float-left">
+                                <a href="{{ route('login') }}" class="nav-link shadow-sm p-3 mb-auto bg-white rounded">{{ __('Login') }}</a>
                             </li>
+                        </ul>
+
                             @if (Route::has('register'))
+                            <ul class="navbar-nav mr-auto ml-1 mb-1 font-bold">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link shadow-sm p-3 mb-auto bg-white rounded" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
+                            </ul>
                             @endif
                         @else
                         {{--  --}}
-                        <li class="nav-item float-left">
+                        <ul class="navbar-nav mr-auto ml-1 mb-1 font-bold">
+                            <li class="nav-item">
+                            <a class="nav-link shadow-sm p-3 mb-auto bg-white rounded" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('ログアウト') }}</a>
+                        </li>
+                        {{-- <li class="nav-item float-left"> --}}
                             {{-- <a href="{{ url('/elections/new') }}" class="nav-link">選挙作成</a> --}}
                             {{-- <a href="{{ route('elections.contact') }}" class="nav-link">退会する</a> --}}
                             {{-- <a class="nav-link" href="{{ route('elections.duser') }}" onclick="event.preventDefault(); document.getElementById('delete-user').submit();">{{ __('退会する') }}</a> --}}
-                            <form id="delete-user" action="{{ route('elections.duser') }}" method="post" class="d-inline">
-                                @csrf
-                                <button class="btn" onclick='return confirm("退会しますか？");'>{{ __('退会する')  }}</button>
-                            </form>
-                            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('ログアウトする') }}</a>
+                            
                             <a id="" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 ユーザー：{{ Auth::user()->name }}
+                                <form id="delete-user" action="{{ route('elections.duser') }}" method="post" class="d-inline">
+                                    @csrf
+                                    <div class="btn btn-warning" onclick='return confirm("退会しますか？");'>{{ __('退会する')  }}</div>
+                                </form>
                             </a>
-                        </li>
+                            {{-- </li> --}}
+                        </ul>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
@@ -81,7 +91,7 @@
                                         <button class="btn" onclick='return confirm("退会しますか？");'>{{ __('退会する')  }}</button>
                                     </form> --}}
                         @endguest
-                    </ul>
+                    {{-- </ul> --}}
                 </div>
             </div>
         </nav>

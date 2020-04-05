@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Ellection Edit') }}</div>
+                    <div class="card-header">{{ __('Election Edit') }}</div>
 
                     {{-- <div id="app">
                     <example-component></example-component>
@@ -45,7 +45,7 @@
                                             </div>
                                         </div>
             
-            <br>
+            <hr>
             @foreach($candidate as $candidate)
               @for($i = 1; $i<=2; $i++)
                                         <div class="form-group row">
@@ -58,26 +58,22 @@
                                                 <div class="col-md-6">
                                                 <input id="com{{ $i-1 }}" type="text" class="form-control @error('com'.($i-1)) is-invalid @enderror" name="com{{ $i-1 }}" value="{{ $candidate['com'.($i-1)] }}" autocomplete="com{{ $i-1 }}" autofocus>
                                                 </div>
-                                             <label for="img{{ $i-1 }}" class="area-drop mt-2 ol-md-4 col-form-label text-md-right <?php if(!empty($err_msg['img'])) echo 'err'; ?>" style="margin:0 auto;">
+                                             <label for="img{{ $i-1 }}" class="area-drop mt-2 col-md-6 col-form-label text-md-right <?php if(!empty($err_msg['img'])) echo 'err'; ?>" style="margin:0 auto;">
                                                 {{-- <img src="{{ $election['img'.($i-1)] }}" alt=""> --}}
-                                                        <br>
+                                                @if ($is_image)
+                                                <figure>
+                                                    <img src="{{ str_replace('public/', '/storage/',$election['img'.($i-1)]) }}" width="100px" height="100px" style="float:left; margin:5px;">
+                                                </figure>
+                                                @endif        
+                                                <div class="" style="float:left;">
                                                         <h6 class="text-center">
                                                         clickでファイル選択 
                                                         </h6>
                                                         <input type="hidden" name="MAX_FILE_SIZE" value="3145728">
                                                         <input type="file" accept="image/*" name="img{{ $i-1 }}" class="input-file" >
-                                                        <br>
+                                                    </div>
                                              </label>
-                                             @if ($is_image)
-<figure>
-    <img src="{{ str_replace('public/', '/storage/',$election['img'.($i-1)]) }}" width="100px" height="100px">
-    {{-- <img src="/app/public/candidate_img/a.jpeg" width="100%" height="100%"> --}}
-    {{-- <img src="/public/storage/candidate_img/a.jpeg" width="100%" height="100%"> --}}
-    {{-- <img src="/storage/app/public/candidate_img/a.jpeg" width="100%" height="100%"> --}}
-    {{-- <img src="/storage/candidate_img/a.jpeg" width="100%" height="100%"> --}}
-    {{-- <figcaption>現在のプロフィール画像</figcaption> --}}
-</figure>
-@endif
+                                            
                                                     @error('name'.($i-1))
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>

@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container contents">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Ellection Register') }}</div>
+                    <div class="card-header">{{ __('Election Register') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('elections.new') }}" enctype="multipart/form-data">
@@ -52,7 +52,7 @@
                                 <div class="col-md-6">
                                 <input id="com{{ $i-1 }}" type="text" class="form-control @error('com'.($i-1)) is-invalid @enderror" name="com{{ $i-1 }}" value=" {{old('com'.($i-1)) }}" autocomplete="com{{ $i-1 }}" autofocus>
                                 </div>
-                             <label for="img{{ $i-1 }}" class="area-drop mt-2 ol-md-4 col-form-label text-center" style="margin:0 auto;">
+                             <label for="img{{ $i-1 }}" class="area-drop mt-2 ol-md-4 col-form-label text-center">
                                 {{ '画像'.($i)  }}
                                         <br>
                                         <h6 class="text-center">
