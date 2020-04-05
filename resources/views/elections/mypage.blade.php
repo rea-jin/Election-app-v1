@@ -20,6 +20,7 @@
                     <a href="{{ route('elections.edit',$election->id ) }}" class="btn btn-primary float-right">{{ __('選挙を編集する') }}</a>
                  <form action="{{ route('elections.delete',$election->id ) }}" method="post" class="d-inline">
                       @csrf
+                      {{ method_field('delete') }}
                        <button class="btn btn-danger float-left" onclick='return confirm("削除しますか？");'>{{ __('Go Delete')  }}</button>
                 </form>
                 </div>
@@ -51,6 +52,7 @@
                         <a href="{{ route('elections.show',$election->id) }}" class="btn btn-primary float-right">{{ __('選挙を見る') }}</a>
                         <form action="{{ route('elections.delete',$election->id ) }}" method="post" class="d-inline">
                             @csrf
+                            {{ method_field('delete') }}
                             <button class="btn btn-danger float-left" onclick='return confirm("削除しますか？");'>{{ __('削除する')  }}</button>
                         </form>
                     </div>

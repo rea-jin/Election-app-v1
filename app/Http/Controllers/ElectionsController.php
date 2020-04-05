@@ -6,8 +6,8 @@ use App\User;
 use App\Vote;
 use App\Election;
 use App\Candidate;
-use App\Http\Requests\CreateElectionRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateElectionRequest;
 // use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -16,12 +16,13 @@ use Illuminate\Support\Facades\Storage;
 class ElectionsController extends Controller
 {
    
-    // 新規登録ページ
+// 新規登録ページ ===============================
     public function new()
     {
         return view('elections.new', compact('elections'));
     }
-    // 登録機能・バリデーション
+
+// 登録機能・バリデーション ===========================
     public function create(CreateElectionRequest $request)
     { // request クラスのvalidateメソッド ->フォームリクエストを使う
 
@@ -29,9 +30,6 @@ class ElectionsController extends Controller
         $election->title = $request->title;
         $election->subtitle = $request->subtitle;
 
-        // $election->img0 = $request->img0;
-        // $election->img0 = $request->img0->store('public/candidate_img');
-        // $election->img1 = $request->img1->store('public/candidate_img');
         // 画像保存
         for($i=1;$i<=3;$i++)
         {
@@ -41,15 +39,11 @@ class ElectionsController extends Controller
                 $election->$img = $request->$img->store('public/candidate_img');
             }
         }
-        // $election->img1 = $request->img1;
-        // $election->img = $request->img;
-        // $election->img = $request->img;  
+     
         $election->user_id = Auth::user()->id;
         $election->save();
 
-        // $election->fill($request->all())->save();
-        // Auth::user()->elections()->save($election->fill($request->all()));
-        
+      
         $candidate = new Candidate;
         // 候補名保存
         for($i=1;$i<=3;$i++)
@@ -77,17 +71,20 @@ class ElectionsController extends Controller
 
     }
 
-    // 編集画面 election_idがくる
+    
+/**
+ * // 編集画面 election_idがくる =========================
+ */
     public function edit($id)
     {
   
         if(!ctype_digit($id)){
-            return redirect('/elections/new')->with('flash_message', __('1Invalid operation was performed.'));
+            return redirect('/elections/new')->with('flash_message', __('Invalid operation was performed.1'));
         }
     
         $election = Election::find($id);
         if($election->delete_flg==1){
-            return redirect('/elections/new')->with('flash_message', __('1Invalid operation was performed.'));
+            return redirect('/elections/new')->with('flash_message', __('Invalid operation was performed.2'));
         }
     
         $candidate = Candidate::where('election_id',$id)->get(); // 取れる！ 外部キーele_id２のcan_id1は取れる
@@ -102,18 +99,17 @@ class ElectionsController extends Controller
         return view('elections.edit', compact('is_image','candidate', 'election','name', 'com'));
     }
 
-    // 更新用
+// 更新用 ====================================
     public function update(CreateElectionRequest $request, $id)
     {
     // GETパラメータが数字かどうかをチェックする
     if(!ctype_digit($id)){
-        return redirect('/elections/new')->with('flash_message', __('2Invalid operation was performed.'));
+        return redirect('/elections/new')->with('flash_message', __('Invalid operation was performed.3'));
     }
 
     // $election = new Election;
     $election = Election::find($id);
-    // $election = Auth::user()->elections()->find($id);
-    // $election->fill($request->all())->save();
+    // 画像更新
     for($i=1;$i<=3;$i++)
         {
             $img = 'img'.($i-1);
@@ -122,8 +118,9 @@ class ElectionsController extends Controller
                 $election->$img = $request->$img->store('public/candidate_img');
             }
         }
-    $election->title = $request->title;
-    $election->subtitle = $request->subtitle;
+   
+    　$election->title = $request->title;
+    　$election->subtitle = $request->subtitle;
     // $election->img0 = $request->img0->store('public/candidate_img');
 
     $election->user_id = Auth::user()->id;
@@ -131,16 +128,9 @@ class ElectionsController extends Controller
 
     $candidate_id = Candidate::where('election_id',$id)->get('id'); // 取れる！ 外部キーele_id２のcan_id1は取れる
     $candidate = Candidate::find($candidate_id);
-    // $candidate = Candidate::find('election_id'$id); // 取れる！ 外部キーele_id２のcan_id1は取れる
-    // $candidate = new Candidate; // 取れる！ 外部キーele_id２のcan_id1は取れる
-    // $candidate->fill([
-    
-    // ])->save();
 
     foreach($candidate as $candidate){
-    // $candidate->name0 = $request->name0;
-    // $candidate->name1 = $request->name1;
-    // $candidate->name2 = $request->name2;
+ 
     for($i=1;$i<=3;$i++)
         {
             $com = 'com'.($i-1);
@@ -149,9 +139,7 @@ class ElectionsController extends Controller
                 $candidate->$com = $request->$com;
             }
         }
-    // $candidate->com0 = $request->com0;
-    // $candidate->com1 = $request->com1;
-    // $candidate->com2 = $request->com2;
+
     for($i=1;$i<=3;$i++)
         {
             $name = 'name'.($i-1);
@@ -168,7 +156,7 @@ class ElectionsController extends Controller
     return redirect('/elections/mypage')->with('flash_message', __('Registered.'));
     }
 
-     // 一覧表示ページ
+// 一覧表示ページ ======================================
      public function index()
      {
          $elections = Election::where('delete_flg',0)->where('start_flg',1)->paginate(8);
@@ -176,17 +164,14 @@ class ElectionsController extends Controller
          return view('elections.index', compact('elections'));
      }
  
-    // 削除処理
+// 削除処理 ============================================
     public function destroy($id)
     {  
     // GETパラメータが数字かどうかをチェックする
     if(!ctype_digit($id)){
-        return redirect('/elections')->with('flash_message', __('3Invalid operation was performed.'));
+        return redirect('/elections')->with('flash_message', __('Invalid operation was performed.4'));
     }
 
-    // こう書いた方がスマート
-    // Election::find($id)->delete();
-    // $election = Auth::user()->elections()->find($id)->delete();
     $election = Auth::user()->elections()->find($id);
     $election->delete_flg = 1;
     $election->save();
@@ -194,12 +179,12 @@ class ElectionsController extends Controller
     return redirect('/elections/mypage')->with('flash_message', __('Deleted.'));
     }
 
-    // 表示処理
+// 表示処理 ================================================
     public function show($id)
     {
     // GETパラメータが数字かどうかをチェックする
     if(!ctype_digit($id)){
-        return redirect('/elections')->with('flash_message', __('4Invalid operation was performed.'));
+        return redirect('/elections')->with('flash_message', __('Invalid operation was performed.5'));
     }
     // 候補表示用
     $election = Election::find($id); 
@@ -221,31 +206,13 @@ class ElectionsController extends Controller
         $count[] = $value; //配列に入れる
     }
     
-    // $value = $total->where($a,$b)->count();
-    // $counts = Vote::where('voted',$value)->count();
-    // $vote_total = Vote::where()->count(); // OK!
-
-    // $values = $count_votes->get('voted');
-    // foreach($values as $value){
-        // $counts = $value;
-
-    // }
-    // $count_votes = Votes$election->votes()->count();
-    // foreach($count_votes as $count_vote)
-    // {
-        // for($i = 1; $i<=10; $i++)
-        // {
-            // $count[($i-1)] = $count_vote->count('name'.($i-1));
-            // $name9 = $count_vote->count();
-        // }
-    // }
     return view('elections.show', compact('a','value2','total_vote','total','value','counts', 'vote_total','name9','count_votes','count_vote','count', 'vote_user','voted','election','candidates'));
     }
 
-    // 投稿処理
+// 投稿処理 ========================================
     public function vote(Request $request, $id){
         if(!ctype_digit($id)){
-            return redirect('/elections')->with('flash_message', __('5Invalid operation was performed.'));
+            return redirect('/elections')->with('flash_message', __('Invalid operation was performed.6'));
         }
         $request->validate([
             // name属性 => required:必須
@@ -262,7 +229,8 @@ class ElectionsController extends Controller
 
         return redirect('/elections/mypage')->with('flash_message', __('投票しました！'));
     }
-    // マイページ
+
+// マイページ =============================================
     public function mypage()
     {   
         $user_id = Auth::user()->id;
@@ -283,20 +251,19 @@ class ElectionsController extends Controller
     return view('elections.mypage', compact('user_id','vote_e_id','elections_v','user','elections','votes','e_title'));
     }
 
-    public function data(Request $request)
+// ユーザー退会 =======================================
+    public function delete(Request $request)
     {
         
-        $user_id = Auth::user()->id;
+      $user_id = Auth::user()->id;
       $user = User::find($user_id);
       $user->delete();
-    //   $elections = Election::all();
-    //   $user_id = Auth::user();
-    //   return view('elections.index',compact('elections'));
-    //   return view('elections.mypage');
-      return redirect('/elections/mypage')->with('flash_message', __('退会しました。'));
+  
+      return redirect('/elections')->with('flash_message', __('退会しました。'));
      
     }
 
+// 選挙開始 =============================================
     public function start($id)
     {
         $election = Election::find($id);

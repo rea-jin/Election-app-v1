@@ -58,7 +58,7 @@
                             @if (Route::has('register'))
                             <ul class="navbar-nav mr-auto ml-1 mb-1 font-bold">
                                 <li class="nav-item">
-                                    <a class="nav-link shadow-sm p-3 mb-auto bg-white rounded" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a href="{{ route('register') }}" class="nav-link shadow-sm p-3 mb-auto bg-white rounded">{{ __('ユーザー登録') }}</a>
                                 </li>
                             </ul>
                             @endif
@@ -66,25 +66,26 @@
                         {{--  --}}
                         <ul class="navbar-nav mr-auto ml-1 mb-1 font-bold">
                             <li class="nav-item">
-                            <a class="nav-link shadow-sm p-3 mb-auto bg-white rounded" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('ログアウト') }}</a>
+                            <a href="{{ route('logout') }}" class="nav-link shadow-sm p-3 mb-auto bg-white rounded" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('ログアウト') }}</a>
                         </li>
                         {{-- <li class="nav-item float-left"> --}}
                             {{-- <a href="{{ url('/elections/new') }}" class="nav-link">選挙作成</a> --}}
                             {{-- <a href="{{ route('elections.contact') }}" class="nav-link">退会する</a> --}}
                             {{-- <a class="nav-link" href="{{ route('elections.duser') }}" onclick="event.preventDefault(); document.getElementById('delete-user').submit();">{{ __('退会する') }}</a> --}}
                             
-                            <a id="" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a href="{{ route('elections.duser')}}" class="nav-link"  role="button"  onclick="event.preventDefault(); document.getElementById('delete-user').submit();">
                                 ユーザー：{{ Auth::user()->name }}
-                                <form id="delete-user" action="{{ route('elections.duser') }}" method="post" class="d-inline">
-                                    @csrf
-                                    <div class="btn btn-warning" onclick='return confirm("退会しますか？");'>{{ __('退会する')  }}</div>
-                                </form>
-                            </a>
+                                <div class="btn btn-warning" onclick='return confirm("退会しますか？");'>{{ __('退会する')  }}</div>
+                             </a>
                             {{-- </li> --}}
                         </ul>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
+                                    </form>
+                                    <form id="delete-user" action="{{ route('elections') }}" method="post" class="d-inline" style="display:none;">
+                                        @csrf
+                                        {{ method_field('delete') }}
                                     </form>
                                     {{-- <form id="delete-user" action="{{ route('elections.duser') }}" method="post" class="d-inline">
                                         @csrf

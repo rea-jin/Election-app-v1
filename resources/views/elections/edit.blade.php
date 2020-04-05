@@ -14,7 +14,7 @@
                     <div class="card-body">
                         <form method="POST" action="{{ route('elections.update',$election->id) }}" enctype="multipart/form-data">
                                         @csrf
-            
+                                        {{ method_field('put') }}
                                         <div class="form-group row">
                                             <label for="title" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
             
@@ -94,7 +94,7 @@
                                     </form>
                                     {{-- post送信のほうがいいか --}}
                                     {{-- <a href="{{ route('elections.mypage',$editflg=0 ) }}" class="btn btn-primary"> --}}
-                                    <form id="start_ele" action="{{ route('elections.start',$election->id) }}" method="post" class="text-center">
+                                    <form id="start_ele" action="{{ route('elections.edit',$election->id) }}" method="post" class="text-center">
                                      <button type="submit" class="btn btn-info col-md-10 mb-2 mr-2" style="color:yellow;">
                                          @csrf
                                          選挙を開始する！
