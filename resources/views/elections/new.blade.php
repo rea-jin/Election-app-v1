@@ -76,6 +76,11 @@
                                         </ul>
                                     </div>
                                     @endif
+                                    @if($errors->has('com'.($i-1)))
+                                     <span class="text-danger">
+                                         {{ $errors->first('com'.($i-1)) }}
+                                        </span>
+                                     @endif
                             </div>
                       
                     
