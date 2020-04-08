@@ -38,6 +38,9 @@ Route::post('/elections/{id}/show', 'ElectionsController@vote')->name('elections
 Route::get('/elections/mypage', 'ElectionsController@mypage')->name('elections.mypage')->middleware('check');
 // 削除用アクション idを指定する
 Route::delete('/elections/{id}/delete', 'ElectionsController@destroy')->name('elections.delete')->middleware('check');
+// 問い合わせ
+Route::get('/elections/contact', 'ElectionsController@contact')->name('elections.contact');
+Route::post('/elections/contact', 'ElectionsController@contact')->name('elections.contact');
 
 Auth::routes();
 

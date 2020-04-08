@@ -16,6 +16,7 @@ class AddColumnSoftDeletesUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             //メソッドでdeleted_atカラム追加
             $table->softDeletes();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

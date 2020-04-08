@@ -106,8 +106,21 @@
         <main class="py-4">
             @yield('content')
         </main>
+
     </div>
+
     @section('footer')
+    <footer>
+        @if(Request::is('elections/contact'))
+            <div class="text-center mt-3 mb-3" style=""></div>
+        @else
+        <div>
+            <a href="{{ route('elections.contact') }}" class="nav-link mt-3 mb-3 p-5 text-center">{{ __('問い合わせはこちら') }}</a>
+            {{-- <a href="#>"  --}}
+            </div>
+            @endif
+    </footer>
+
     <!-- <script src="{{ asset('/js/jquery-3.1.1.min.js') }}"></script> -->
     <script
           src="https://code.jquery.com/jquery-3.2.1.min.js"

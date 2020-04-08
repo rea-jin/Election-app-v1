@@ -31,7 +31,7 @@ class ElectionsController extends Controller
         $election->subtitle = $request->subtitle;
 
         // 画像保存
-        for($i=1;$i<=3;$i++)
+        for($i=1;$i<=10;$i++)
         {
             $img = 'img'.($i-1);
             if(!empty($request->$img))
@@ -46,7 +46,7 @@ class ElectionsController extends Controller
       
         $candidate = new Candidate;
         // 候補名保存
-        for($i=1;$i<=3;$i++)
+        for($i=1;$i<=10;$i++)
         {
             $name = 'name'.($i-1);
             if(!empty($request->$name))
@@ -55,14 +55,14 @@ class ElectionsController extends Controller
             }
         }
         // コメント保存
-        for($i=1;$i<=3;$i++)
+        for($i=1;$i<=10;$i++)
         {
             $com = 'com'.($i-1);
             if(!empty($request->$com))
             {
                 $candidate->$com = $request->$com;
             }
-        }
+        };
       
         $candidate->election_id = $election->id;
         $candidate->save();
@@ -109,6 +109,8 @@ class ElectionsController extends Controller
 
     // $election = new Election;
     $election = Election::find($id);
+    $election->title = $request->title;
+    $election->subtitle = $request->subtitle;
     // 画像更新
     for($i=1;$i<=3;$i++)
         {
@@ -117,10 +119,8 @@ class ElectionsController extends Controller
             {
                 $election->$img = $request->$img->store('public/candidate_img');
             }
-        }
+        };
    
-    　$election->title = $request->title;
-    　$election->subtitle = $request->subtitle;
     // $election->img0 = $request->img0->store('public/candidate_img');
 
     $election->user_id = Auth::user()->id;
@@ -272,4 +272,8 @@ class ElectionsController extends Controller
         return redirect('/elections')->with('flash_message', __('投票開始しました'));
     }
 
+    public function contact()
+    {
+        return view('elections.contact');
+    }
 }
