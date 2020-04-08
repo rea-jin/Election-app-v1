@@ -16,7 +16,8 @@ class CreateElectionsTable extends Migration
         Schema::create('elections', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->string('img0');
+            $table->string('subtitle')->nullable();
+            $table->string('img0')->nullable();
             $table->string('img1')->nullable();
             $table->string('img2')->nullable();
             $table->string('img3')->nullable();
@@ -27,6 +28,9 @@ class CreateElectionsTable extends Migration
             $table->string('img8')->nullable();
             $table->string('img9')->nullable();
             $table->timestamps();
+            $table->int('delete_flg')->default(0);
+            $table->int('start_flg')->default(0);
+           
         });
     }
 
