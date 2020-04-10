@@ -126,7 +126,9 @@ class ElectionsController extends Controller
     $election->user_id = Auth::user()->id;
     $election->save();
 
-    $candidate_id = Candidate::where('election_id',$id)->get('id'); // 取れる！ 外部キーele_id２のcan_id1は取れる
+    // $candidate_id = Candidate::where('election_id',$id)->get('id'); // 取れる！ 外部キーele_id２のcan_id1は取れる
+    $candidate_id = Candidate::where('election_id',$id)->first('id'); // 1つしかないので
+    // dump($candidate_id); // デバッグ
     $candidate = Candidate::find($candidate_id);
 
     foreach($candidate as $candidate){
