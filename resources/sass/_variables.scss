@@ -3,6 +3,7 @@ $body-bg: #f8fafc;
 
 // Typography
 $font-family-sans-serif: 'Nunito', sans-serif;
+$font-family: 'Comic Neue', cursive;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
@@ -11,9 +12,106 @@ $blue: #3490dc;
 $indigo: #6574cd;
 $purple: #9561e2;
 $pink: #f66d9b;
-$red: #e3342f;
+$red: #e3342e;
 $orange: #f6993f;
 $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+$seashell: seashell;
+$water:#c9f6ff;
+$leaf:#e4ffdb;
+$skin:#fff1d4;
+
+// app
+.navbar{
+    position:fixed !important;
+    width:100%;
+    z-index:1;
+    background: -moz-linear-gradient(top, $seashell, #FFF);
+    background: -webkit-linear-gradient(top, $seashell, #FFF);
+    background: linear-gradient(to right, $seashell, #FFF);
+}
+.navbar-collapse{
+    flex-grow:0 !important;
+}
+.nav-link{
+    &:active{
+        // transform: translateY(-5px);
+        color:$cyan !important;
+        // box-shadow: 2px 4px #555;
+        // transition: all 0.5s;
+    }
+}
+// all
+.contents{
+    position:relative;
+    top:100px;
+    padding:20px;
+}
+// index
+.section__body{
+    margin: 0 auto;
+
+    .section__list{
+        backgorund-color:#d393ff; 
+    }
+}
+
+ .section__card{
+            border:5px solid #009988;
+            
+            &--title{
+                height:30px; overflow:hidden;
+            }
+            &--subtitle{
+                height:45px; overflow:hidden;
+            }
+            &--btn{
+                float:right; width:30%;
+                // &:active + .card-title{
+                //     background-color:$water;
+                // }
+            }
+}
+.paginator{
+    width:20%; margin:0 auto;
+}
+
+// new
+.area-drop{
+    margin:0 auto;
+}
+
+// mypage
+.contents-list{
+    overflow:scroll; height:400px;
+    
+}
+.card-list{
+    float:left;
+    .card-body{
+        background: -moz-linear-gradient(top, $water, #FFF);
+        background: -webkit-linear-gradient(top, $water, #FFF);
+        background: linear-gradient(to bottom, $water, #FFF);
+    }
+}
+.card-list2{
+    float:left; 
+
+    .card-body{
+        background: -moz-linear-gradient(top, $leaf, #FFF);
+        background: -webkit-linear-gradient(top, $leaf, #FFF);
+        background: linear-gradient(to bottom, $leaf, #FFF);
+    }
+}
+
+.card-list3{
+    float:left;
+
+     .card-body{
+         background: -moz-linear-gradient(top, $skin, #FFF);
+        background: -webkit-linear-gradient(top, $skin, #FFF);
+        background: linear-gradient(to bottom, $skin, #FFF);
+     }
+}

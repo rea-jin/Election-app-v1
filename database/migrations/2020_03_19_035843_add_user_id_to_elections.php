@@ -18,6 +18,7 @@ class AddUserIdToElections extends Migration
             DB::statement('DELETE FROM elections');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+        
         });
     }
 

@@ -17,7 +17,7 @@ class CreateVoteTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('e_id');
+            $table->unsignedBigInteger('election_id');
             $table->foreign('election_id')->references('id')->on('elections');
             $table->string('voted');
             $table->timestamps();
