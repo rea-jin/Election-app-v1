@@ -85,23 +85,6 @@
                       
                     
 @endfor
-                           
-{{-- 
-                            <div class="form-group row">
-                                <label for="problem2" class="col-md-4 col-form-label text-md-right">{{ __('Problem').'3' }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="problem2" type="text" class="form-control @error('problem2') is-invalid @enderror" name="problem2" value="{{ old('problem2') }}" autocomplete="problem0" autofocus>
-
-                                    @error('problem2')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div> --}}
-
-
 
                             <div class="form-group row mb-0 text-center">
                                 <div class="text-center col-md-12">

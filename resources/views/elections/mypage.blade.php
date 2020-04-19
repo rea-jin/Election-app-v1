@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-
-<div class="container contents contents-list">
+<div class="contents">
+<div class="container contents-list">
     <h2>{{ __('作成中の選挙') }}</h2>
     <p>選挙開始は編集画面から行ってください</p>
 {{-- {{var_dump($elections)}} --}}
@@ -90,4 +90,5 @@
 
         </div>
     </div>
+</div>
 @endsection
