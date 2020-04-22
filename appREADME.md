@@ -33,7 +33,6 @@ CRUD処理
 - 投票
 - 結果集計
 - ページネーション
-- object relational mapping でリレーションを作る
 - 問い合わせ機能
 - 
 
@@ -47,5 +46,5 @@ CRUD処理
 - 結合テストする
 - API入れる
 
-4.others
-
+4.how to use
+- ダウンロードして、php aritsan migrate, $php artisan storage:link　をすれば、使用できます。
