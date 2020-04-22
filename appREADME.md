@@ -1,22 +1,25 @@
 # my first application of laravel 
 **環境**
-MAC:10.13.6
-php:7.1.6
-laravel:5.8.37
-composer:1.9.2
-node:12.11.0
-npm:6.11.3
-DB:MySQL
+- MAC:10.13.6
+- php:7.1.6
+- laravel:5.8.37
+- composer:1.9.2
+- node:12.11.0
+- npm:6.11.3
+- DB:MySQL
 
 1.requirements
 '必要最低限の機能'をまず作る
-- ユーザー認証系
+Authentification
+- ユーザー認証
+CRUD処理
 - 選挙を作成し、投稿できる
     - 作成した選挙は、マイページで表示され、編集、削除ができる
     - 開始した選挙は、編集できないようにする。削除はできる。
 - 選挙を表示すると、投票できる。
     - １度投票した選挙には、投票できないようにする。
-- 
+- ユーザーが退会しても、開始済みの選挙は残る
+- ユーザーが退会しても、投票済みの票数は変わらない
 
 2.functions
 - ユーザー登録
@@ -31,6 +34,7 @@ DB:MySQL
 - 結果集計
 - ページネーション
 - object relational mapping でリレーションを作る
+- 問い合わせ機能
 - 
 
 3.todo
