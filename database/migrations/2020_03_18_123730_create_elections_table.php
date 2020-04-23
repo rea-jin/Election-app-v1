@@ -28,8 +28,8 @@ class CreateElectionsTable extends Migration
             $table->string('img8')->nullable();
             $table->string('img9')->nullable();
             $table->timestamps();
-            $table->int('delete_flg')->default(0);
-            $table->int('start_flg')->default(0);
+            $table->integer('delete_flg')->default(0);
+            $table->integer('start_flg')->default(0);
            
         });
     }
