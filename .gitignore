@@ -18,3 +18,5 @@ secret.txt
 /app/Http/Controllers/EleController.php
 /resources/views/elections/edit.blade_copy.php
 /resources/views/elections/new.blade_copy.php
+/resources/views/top.blade.php
+/resources/views/welcome.blade.php

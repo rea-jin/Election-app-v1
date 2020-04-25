@@ -11,7 +11,7 @@
 |
 */
 // top ページ あとで作る
-Route::get('weekend-v.net/elections', 'ElectionsController@index')->name('elections');
+Route::get('/', 'ElectionsController@top')->name('elections.top');
 // 一覧表示アクション
 Route::get('/elections', 'ElectionsController@index')->name('elections');
 // 退会用アクション

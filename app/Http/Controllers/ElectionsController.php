@@ -15,14 +15,29 @@ use Illuminate\Support\Facades\Storage;
 
 class ElectionsController extends Controller
 {
-   
-// 新規登録ページ ===============================
+/**
+ * topページ ==========================================
+ */
+public function top()
+{
+    return view('elections.top');
+}
+// 一覧表示ページ ======================================
+public function index()
+{
+    $elections = Election::where('delete_flg',0)->where('start_flg',1)->paginate(8);
+
+    return view('elections.index', compact('elections'));
+}
+
+
+// 新規登録ページ =======================================
     public function new()
     {
         return view('elections.new', compact('elections'));
     }
 
-// 登録機能・バリデーション ===========================
+// 登録機能・バリデーション ================================
     public function create(CreateElectionRequest $request)
     { // request クラスのvalidateメソッド ->フォームリクエストを使う
 
@@ -158,14 +173,7 @@ class ElectionsController extends Controller
     return redirect('/elections/mypage')->with('flash_message', __('Registered.'));
     }
 
-// 一覧表示ページ ======================================
-     public function index()
-     {
-         $elections = Election::where('delete_flg',0)->where('start_flg',1)->paginate(8);
- 
-         return view('elections.index', compact('elections'));
-     }
- 
+
 // 削除処理 ============================================
     public function destroy($id)
     {  
