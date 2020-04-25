@@ -11,4 +11,12 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 secret.txt
-
+/resources/views/elections/edit2.blade.php
+/resources/views/elections/show2.blade.php
+/resources/views/elections/7edit.blade.php
+/resources/views/elections/redit.blade.php
+/app/Http/Controllers/EleController.php
+/resources/views/elections/edit.blade_copy.php
+/resources/views/elections/new.blade_copy.php
+/resources/views/top.blade.php
+/resources/views/welcome.blade.php
