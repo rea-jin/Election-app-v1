@@ -190,7 +190,7 @@ class ElectionsController extends Controller
     }
     // 候補表示用
     $election = Election::find($id); 
-    $candidates = Candidate::where('election_id',$id)->get();
+    $candidates = Candidate::where('election_id',$id)->first();
     // 投票したか eloqでログインuserのvoteを取り、ele_idが渡されたidと一致しているものがあるか
     $vote_user = Auth::user()->votes()->where('election_id',$id)->exists();
     // 投票数を数える 指定の選挙のvotedを取得
