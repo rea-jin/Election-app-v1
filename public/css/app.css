@@ -86,6 +86,16 @@
   background: linear-gradient(to bottom, #fff1d4, #FFF);
 }
 
+label.area-drop {
+  box-shadow: 0px 1px 1px 1px #999;
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 28px;
+  }
+}
+
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors

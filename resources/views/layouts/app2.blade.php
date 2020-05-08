@@ -11,7 +11,8 @@
 
     <!-- Scripts -->
     {{-- <script src="{{ asset('js/main.js') }}" defer></script> --}}
-
+    <script src="{{ asset('js/particles.js') }}" defer></script>
+    <script src="{{ asset('js/js/app2.js') }}" defer></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -58,8 +59,7 @@
     @section('footer')
    
      {{-- <script src="{{ asset('js/particles.min.js') }}"></script> --}}
-     <script src="{{ asset('js/particles.js') }}"></script>
-     <script src="{{ asset('js/js/app2.js') }}"></script>
+   
     {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
    
     @show

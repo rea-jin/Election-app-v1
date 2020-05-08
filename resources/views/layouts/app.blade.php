@@ -19,7 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="animate.min.css">
+    {{-- <link rel="stylesheet" href="animate.min.css" type="text/css"> --}}
 </head>
 <body>
     <div id="app">

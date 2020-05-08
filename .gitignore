@@ -20,3 +20,4 @@ secret.txt
 /resources/views/elections/new.blade_copy.php
 /resources/views/top.blade.php
 /resources/views/welcome.blade.php
+readme.md

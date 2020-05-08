@@ -282,8 +282,4 @@ public function index()
         return redirect('/elections')->with('flash_message', __('投票開始しました'));
     }
 
-    public function contact()
-    {
-        return view('elections.contact');
-    }
 }

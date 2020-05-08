@@ -38,7 +38,6 @@ CRUD処理
 
 3.todo
 - AWSでデプロイする
-- topページ作る
 - 画像プレビュー
 - カテゴリーを追加する
 - vueを使って、サイドバーを作る
@@ -47,4 +46,7 @@ CRUD処理
 - API入れる
 
 4.how to use
-- ダウンロードして、php aritsan migrate, $php artisan storage:link　をすれば、使用できます。
+- 公開URL
+- https://weekend-v.work/elections/top
+- こちらから、公開しているものが見れます。
+- a@email.com パスワードはaが8つです。

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container contents">
     <div class="row justify-content-center">
         <div class="card" style="width:80%;">
             <div class="card-header text-center h3">{{ $election->title }}</div>
@@ -28,10 +28,11 @@
                 <form id="vote" method="POST" action="{{ route('elections.vote',$election->id) }}" required class="@error('vote') is-invalid @enderror">
                     @csrf
                     <div class="text-center mb-2" style="font-weight:bold; font-size:1.5em;">総投票数：{{ $total_vote }} 票 </div>
-                        
+  {{-- 候補名、コメント、画像を展開 ---------------------------------------}}
                     @foreach($candidates as $candidate)
                     @for($i=1; $i<=10; $i++)
                     <div class="col-md-12" style="margin:0 auto;">
+            {{-- 画像の保存先パス 公開ディレクトリpublic ----------------------}}
                         <div class="col-md-12" style="">
                             <img src="{{ str_replace('public/', '/storage/',$election['img'.($i-1)]) }}" class="mb-2" width="100px" height="100px"  style="float:left; clear:both;">
                         </div>
