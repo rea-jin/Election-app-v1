@@ -75,10 +75,20 @@
                    
 
                 @endif
-                <a href="{{ route('elections')}}" class="btn btn-primary">前に戻る</a>
                 {{-- {{ var_dump($vote_user) }} --}}
-
-            <div>
+                {{-- HTTPリファラーが設定されている場合は取得して、そうでない場合はnullを設定する。 --}}
+                <div style="display:none;">{{ $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null}}
+                </div>
+                {{-- HTTPリファラーに応じて処理を行う場合 --}}
+                {{-- {{ dump(parse_url($referer, PHP_URL_HOST)) }} --> 127.0.0.1 --}}
+                {{-- {{ dump(parse_url($referer, PHP_URL_PATH)) }} --> /elections/mypage --}}
+                @if (parse_url($referer, PHP_URL_PATH) == '/elections/mypage')
+                    <a href="{{ route('elections.mypage')}}" class="btn btn-primary">前に戻る</a>
+                @else
+                    <a href="{{ route('elections')}}" class="btn btn-primary">前に戻る</a>
+                @endif
+                
+                <div>
             </div>
         </div>
         @endsection
