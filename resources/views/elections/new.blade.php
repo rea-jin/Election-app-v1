@@ -54,13 +54,11 @@
                                 </div>
                              <label for="img{{ $i-1 }}" class="area-drop mt-2 ol-md-4 col-form-label text-center">
                                 {{ '画像'.($i)  }}
-                                        <br>
-                                        <h6 class="text-center">
-                                        clickでファイル選択
-                                        </h6>
-                                        <input type="hidden" name="MAX_FILE_SIZE" value="3145728">
-                                        <input type="file" accept="image/*" name="img{{ $i-1 }}" class="input-file" >
-                                        <br>
+{{-- 画像プレビュー --}}
+<example-component>
+{{-- ここにビューが入る --}}
+</example-component>
+                                    
                             </label>
                                     @error('name'.($i-1))
                                     <span class="invalid-feedback" role="alert">
@@ -82,8 +80,6 @@
                                         </span>
                                      @endif
                             </div>
-                      
-                    
 @endfor
 
                             <div class="form-group row mb-0 text-center">
